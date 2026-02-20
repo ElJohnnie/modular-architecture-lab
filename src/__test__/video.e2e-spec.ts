@@ -1,11 +1,11 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '@src/app.module';
-import { PrismaService } from '@src/prisma.service';
+import { PrismaService } from '@src/persistence/prisma/prisma.service';
 import fs from 'fs';
 import request from 'supertest';
 
-describe('VideoController (e2e)', () => {
+describe('ContentController (e2e)', () => {
   let module: TestingModule;
   let app: INestApplication;
   let prismaService: PrismaService;
@@ -48,7 +48,7 @@ describe('VideoController (e2e)', () => {
       };
 
       await request(app.getHttpServer())
-        .post('/video')
+        .post('/content/video')
         .attach('video', './test/fixtures/sample.mp4')
         .attach('thumbnail', './test/fixtures/sample.jpg')
         .field('title', video.title)
@@ -65,6 +65,7 @@ describe('VideoController (e2e)', () => {
           });
         });
     });
+
     it('throws an error when the thumbnail is not provided', async () => {
       const video = {
         title: 'Test Video',
@@ -76,7 +77,7 @@ describe('VideoController (e2e)', () => {
       };
 
       await request(app.getHttpServer())
-        .post('/video')
+        .post('/content/video')
         .attach('video', './test/fixtures/sample.mp4')
         .field('title', video.title)
         .field('description', video.description)
@@ -89,6 +90,7 @@ describe('VideoController (e2e)', () => {
           });
         });
     });
+
     it('does not allow non mp4 files', async () => {
       const video = {
         title: 'Test Video',
@@ -100,7 +102,7 @@ describe('VideoController (e2e)', () => {
       };
 
       await request(app.getHttpServer())
-        .post('/video')
+        .post('/content/video')
         .attach('video', './test/fixtures/sample.mp3')
         .attach('thumbnail', './test/fixtures/sample.jpg')
         .field('title', video.title)
@@ -115,10 +117,10 @@ describe('VideoController (e2e)', () => {
     });
   });
 
-  describe('/stream/:videoId', () => {
+  describe('GET /stream/:videoId', () => {
     it('streams a video', async () => {
       const { body: sampleVideo } = await request(app.getHttpServer())
-        .post('/video')
+        .post('/content/video')
         .attach('video', './test/fixtures/sample.mp4')
         .attach('thumbnail', './test/fixtures/sample.jpg')
         .field('title', 'Test Video')
@@ -129,7 +131,7 @@ describe('VideoController (e2e)', () => {
       const range = `bytes=0-${fileSize - 1}`;
 
       const response = await request(app.getHttpServer())
-        .get(`/stream/${sampleVideo.id}`)
+        .get(`/content/stream/${sampleVideo.id}`)
         .set('Range', range)
         .expect(HttpStatus.PARTIAL_CONTENT);
 
@@ -140,10 +142,9 @@ describe('VideoController (e2e)', () => {
       expect(response.headers['content-length']).toBe(String(fileSize));
       expect(response.headers['content-type']).toBe('video/mp4');
     });
-
     it('returns 404 if the video is not found', async () => {
       await request(app.getHttpServer())
-        .get('/stream/45705b56-a47f-4869-b736-8f6626c940f8')
+        .get('/content/stream/45705b56-a47f-4869-b736-8f6626c940f8')
         .expect(HttpStatus.NOT_FOUND);
     });
   });
