@@ -2,7 +2,7 @@ import { Column, Entity, OneToOne } from 'typeorm';
 import { Movie } from './movie.entity';
 import { TvShow } from './tv-show.entity';
 import { DefaultEntity } from '@src/infra/module/typeorm/entity/default.entity';
-import { ContentType } from '@src/core/entity/content.entity';
+import { ContentType } from '@src/core/enum/content-type.enum';
 
 @Entity({ name: 'Content' })
 export class Content extends DefaultEntity<Content> {
