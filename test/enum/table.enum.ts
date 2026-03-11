@@ -6,4 +6,6 @@ export enum Tables {
   Movie = 'Movie',
   Content = 'Content',
   Thumbnail = 'Thumbnail',
+  Episode = 'Episode',
+  TvShow = 'TvShow',
 }

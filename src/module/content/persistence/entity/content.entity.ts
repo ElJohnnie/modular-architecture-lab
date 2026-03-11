@@ -1,7 +1,7 @@
 import { Column, Entity, OneToOne } from 'typeorm';
 import { Movie } from './movie.entity';
 import { TvShow } from './tv-show.entity';
-import { DefaultEntity } from '@contentModule/infra/module/typeorm/entity/default.entity';
+import { DefaultEntity } from '@sharedModules/persistence/typeorm/entity/default.entity';
 import { ContentType } from '@contentModule/core/enum/content-type.enum';
 
 @Entity({ name: 'Content' })
@@ -15,6 +15,9 @@ export class Content extends DefaultEntity<Content> {
   @Column('text')
   description: string;
 
+  @Column({ type: 'int', nullable: true })
+  ageRecommendation: number | null;
+
   @OneToOne(() => Movie, (movie) => movie.content, {
     cascade: true,
   })
@@ -23,5 +26,5 @@ export class Content extends DefaultEntity<Content> {
   @OneToOne(() => TvShow, (tvShow) => tvShow.content, {
     cascade: true,
   })
-  tvShow: TvShow | null;
+  tvShow: TvShow;
 }

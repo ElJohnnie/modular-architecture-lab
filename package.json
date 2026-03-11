@@ -21,7 +21,7 @@
     "content:db:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate database/content/typeorm/migrations/migration  -d ./database/content/typeorm/migration.datasource.ts",
     "content:db:migrate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./database/content/typeorm/migration.datasource.ts",
     "content:db:drop": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:drop -d ./database/content/typeorm/migration.datasource.ts",
-    "identity:db:generate": "prisma migrate dev",
+    "identity:db:generate": "prisma generate",
     "identity:db:migrate": "prisma db push",
     "billing:db:generate": "drizzle-kit generate --config database/billing/drizzle/drizzle-migration.config.ts",
     "billing:db:migrate": "drizzle-kit migrate --config database/billing/drizzle/drizzle-migration.config.ts",
