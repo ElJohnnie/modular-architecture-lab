@@ -1,8 +1,6 @@
 import { EpisodeRepository } from '@contentModule/persistence/repository/episode.repository';
-import { TransactionManagerService } from '@contentModule/persistence/transaction-manager.service';
 import { DynamicModule, Module } from '@nestjs/common';
 import { TypeOrmPersistenceModule } from '@sharedModules/persistence/typeorm/typeorm-persistence.module';
-import { DataSource } from 'typeorm';
 import { Content } from './entity/content.entity';
 import { Episode } from './entity/episode.entity';
 import { Movie } from './entity/movie.entity';
@@ -25,44 +23,17 @@ export class PersistenceModule {
           entities: [Content, Movie, Thumbnail, Video, TvShow, Episode],
         }),
       ],
-      // dependencies injections only for repositories and transaction manager
       providers: [
-        {
-          provide: ContentRepository,
-          useFactory: (dataSource: DataSource) => {
-            return new ContentRepository(dataSource.manager);
-          },
-          inject: [DataSource],
-        },
-        {
-          provide: MovieRepository,
-          useFactory: (dataSource: DataSource) => {
-            return new MovieRepository(dataSource.manager);
-          },
-          inject: [DataSource],
-        },
-        {
-          provide: VideoRepository,
-          useFactory: (dataSource: DataSource) => {
-            return new VideoRepository(dataSource.manager);
-          },
-          inject: [DataSource],
-        },
-        {
-          provide: EpisodeRepository,
-          useFactory: (dataSource: DataSource) => {
-            return new EpisodeRepository(dataSource.manager);
-          },
-          inject: [DataSource],
-        },
-        TransactionManagerService,
+        ContentRepository,
+        MovieRepository,
+        VideoRepository,
+        EpisodeRepository,
       ],
       exports: [
         ContentRepository,
         MovieRepository,
         VideoRepository,
         EpisodeRepository,
-        TransactionManagerService,
       ],
     };
   }
