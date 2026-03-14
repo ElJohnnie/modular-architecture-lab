@@ -56,11 +56,9 @@ export class CreateTvShowEpisodeUseCase {
       sizeInKb: episodeData.videoSizeInKb,
     });
 
-    Promise.all([
-      await this.videoProcessorService.processMetadataAndModeration(video),
-      await this.ageRecommendationService.setAgeRecommendationForContent(
-        content,
-      ),
+    await Promise.all([
+      this.videoProcessorService.processMetadataAndModeration(video),
+      this.ageRecommendationService.setAgeRecommendationForContent(content),
     ]);
 
     episode.video = video;
