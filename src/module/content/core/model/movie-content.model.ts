@@ -28,8 +28,8 @@ export class MovieContentModel {
       id: data.id ? data.id : randomUUID(),
       //encapsulates the creation
       type: ContentType.MOVIE,
-      createdAt: data.createdAt || Date.now(),
-      updatedAt: data.updatedAt || Date.now(),
+      createdAt: data.createdAt || new Date(),
+      updatedAt: data.updatedAt || new Date(),
       deletedAt: data.deletedAt,
       movie: data.movie,
     });

@@ -60,6 +60,45 @@
               ]
             }
           ]
+        },
+        {
+          "name": "queue",
+          "ruleId": "queue_folder"
+        }
+      ]
+    },
+    "use_case_folder": {
+      "name": "use-case",
+      "children": [
+        {
+          "name": "__test__",
+          "children": [
+            {
+              "name": "integration",
+              "children": [
+                {
+                  "name": "{kebab-case}.use-case.spec.ts"
+                }
+              ]
+            }
+          ]
+        },
+        { "name": "{kebab-case}.use-case.ts" }
+      ]
+    },
+    "queue_folder": {
+      "name": "queue",
+      "children": [
+        {
+          "name": "producer",
+          "children": [{ "name": "{kebab-case}.queue-producer.ts" }]
+        },
+        {
+          "name": "consumer",
+          "children": [{ "name": "{kebab-case}.queue-consumer.ts" }]
+        },
+        {
+          "name": "queue.constant.ts"
         }
       ]
     },
@@ -101,7 +140,7 @@
         },
         { "name": "model", "children": [{ "ruleId": "file_name" }] },
         { "name": "service", "children": [{ "ruleId": "file_name" }] },
-        { "name": "use-case", "children": [{ "ruleId": "file_name" }] },
+        { "name": "use-case", "ruleId": "use_case_folder" },
         { "name": "exception", "children": [{ "ruleId": "file_name" }] },
         {
           "name": "adapter",

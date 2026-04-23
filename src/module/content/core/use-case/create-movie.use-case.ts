@@ -50,15 +50,10 @@ export class CreateMovieUseCase {
       });
     }
 
-    Promise.all([
-      await this.videoProcessorService.processMetadataAndModeration(
-        contentModel.movie.video,
-      ),
-      await this.ageRecommendationService.setAgeRecommendationForContent(
-        contentModel,
-      ),
-    ]);
     const content = await this.contentRepository.saveMovie(contentModel);
+    await this.videoProcessorService.processMetadataAndModeration(
+      contentModel.movie.video,
+    );
 
     return content;
   }

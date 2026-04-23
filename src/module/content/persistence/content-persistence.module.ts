@@ -1,5 +1,6 @@
 import { ContentRepository } from '@contentModule/persistence/repository/content.repository';
 import { EpisodeRepository } from '@contentModule/persistence/repository/episode.repository';
+import { VideoMetadataRepository } from '@contentModule/persistence/repository/video-metadata.repository';
 import { VideoRepository } from '@contentModule/persistence/repository/video.repository';
 import { dataSourceOptionsFactory } from '@contentModule/persistence/typeorm-datasource.factory';
 import { Module } from '@nestjs/common';
@@ -29,7 +30,17 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
       },
     }),
   ],
-  providers: [ContentRepository, EpisodeRepository, VideoRepository],
-  exports: [ContentRepository, EpisodeRepository, VideoRepository],
+  providers: [
+    ContentRepository,
+    EpisodeRepository,
+    VideoRepository,
+    VideoMetadataRepository,
+  ],
+  exports: [
+    ContentRepository,
+    EpisodeRepository,
+    VideoRepository,
+    VideoMetadataRepository,
+  ],
 })
 export class ContentPersistenceModule {}

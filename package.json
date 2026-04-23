@@ -28,13 +28,15 @@
     "identity:db:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate src/module/identity/persistence/migration/migration -d src/module/identity/persistence/typeorm-datasource.ts",
     "identity:db:migrate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/module/identity/persistence/typeorm-datasource.ts",
     "identity:db:drop": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:drop -d src/module/identity/persistence/typeorm-datasource.ts",
-    "db:migrate:all": "yarn content:db:migrate && yarn billing:db:migrate && yarn identity:db:migrate"
+    "db:migrate:all": "npm run content:db:migrate && npm run billing:db:migrate && npm run identity:db:migrate",
+    "db:drop:all": "npm run content:db:drop && npm run billing:db:drop && npm run identity:db:drop"
   },
   "dependencies": {
     "@apollo/server": "^4.10.5",
     "@google/genai": "^0.13.0",
     "@nestjs/apollo": "^12.2.0",
     "@nestjs/axios": "^3.1.0",
+    "@nestjs/bullmq": "^11.0.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.2",
     "@nestjs/core": "^10.0.0",
@@ -44,6 +46,7 @@
     "@nestjs/typeorm": "^10.0.2",
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
+    "bullmq": "^5.52.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "graphql": "^16.9.0",

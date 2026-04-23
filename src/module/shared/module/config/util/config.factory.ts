@@ -25,6 +25,10 @@ export const factory = (): Config => {
       apiKey: process.env.GEMINI_API_KEY,
       url: process.env.GEMINI_API_URL,
     },
+    redis: {
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
+    },
   });
 
   if (result.success) {

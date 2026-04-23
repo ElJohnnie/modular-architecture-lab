@@ -19,6 +19,9 @@ export class Video extends DefaultEntity<Video> {
   @JoinColumn()
   movie: Movie;
 
+  @Column({ type: 'uuid', nullable: true })
+  movieId: string;
+
   @OneToOne(() => Episode, (episode) => episode.video)
   @JoinColumn()
   episode: Episode;
